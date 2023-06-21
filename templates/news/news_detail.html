@@ -1,0 +1,15 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+      <div class="col-sm-8">
+          <img src="{{news.image.url}}" alt="{{news.title}}" width=30%>
+          <p>Vaqti: <i>{{news.publish_time}}</i></p>
+          <h3>{{news.title}}</h3>
+          <p>{{news.body}}</p>
+      </div>
+  </div>
+</div>
+{% endblock content %}

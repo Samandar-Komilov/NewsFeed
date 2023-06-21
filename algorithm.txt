@@ -1,0 +1,24 @@
+-----| News project Algorithm in a nutshell |-----
+
+0. Create database design using a graphic tool like draw.sql, draw.io ...
+1. pipenv related
+2. django-admin startproject / python manage.py startapp -> add app to settings.py
+3. models.py: create models. New info:
+  - SlugField()
+  - subclass which inherits models.TextChoices
+  - Meta class for ordering [-"publish_time"]
+4. settings.py: MEDIA_URL and MEDIA_ROOT set (if you upload image using ImageField(upload_to=))
+5. project urls.py: if settings.DEBUG: urlpatterns += static(MEDIA_URL,MEDIA_ROOT)
+6. admin.py: createsuperuser > register models > create ModelAdmin and manage their list, filter, ordering...
+7. Shell orqali ORM ni boshqarib ko'rish -> objects manageri
+8. views.py: News list va detail page > add templates > html: for orqali iterate qilish
+8+. News class Status subclass ochish orqali Published yoki Draft ekanini anglatib turibdi.
+9. Static files > finders, adding to urls.py just like media
+10. Templates: Template download qilish. Mos fayllarni directoriyalarga joylash va url, static qismlarini kiritib chiqish
+11. Forms: Create contact model -> forms.py -> Modelform > views.py add > sending
+12. Show news by categories: truncatewords. 
+
+13. get_context_data va context_processor: HomePageView class, adding extra context using get_context_data, adding new file - custom_context_processor. 
+  - Loyihani to'ldirish: Xuddi shu usulda barcha kategoriyalar uchun yangiliklar qoshish va ularni aks ettirish.
+14. URL ni slug o'zgartirish: <int:id> -> <slug:news> va boshqa updatelar
+15. Category boyicha pagelar ochish, get_queryset() overwrite qilish.

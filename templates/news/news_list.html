@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All news list</title>
+</head>
+<body>
+  <h1>All news list</h1>
+
+  {% for news in news_list %}
+    <img src="{{news.image.url}}" width=200>
+    <h3 style="width: 200px"><a href="{% url 'news_detail' news.id %}">{{news.title}}</a></h3>
+    <p style="width: 200px">{{news.body}}</p>
+  {% endfor %}
+</body>
+</html>
