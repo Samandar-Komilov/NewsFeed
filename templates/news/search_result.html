@@ -1,0 +1,14 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+<title>{% block title %}Qidiruv natijalari{% endblock title %}</title>
+
+{% block content %}
+<div>
+    <h2>Qidiruv natijalari</h2>
+    {% for news in all_news %}
+    <h3><a href="{% url 'news_detail' news.slug %}" style='color: red;'>{{news.title}}</a></h3>
+    <img src="{{news.image.url}}" width="10%"></img>
+    {% endfor %}
+</div>
+{% endblock content %}

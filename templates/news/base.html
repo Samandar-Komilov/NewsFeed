@@ -35,10 +35,19 @@
               <li><a href="{% url 'home_page' %}">Asosiy</a></li>
               <li><a href="{% url 'about_page' %}">Biz haqimizda</a></li>
               <li><a href="{% url 'contact_page' %}">Biz bilan aloqa</a></li>
+              {% if request.user.is_authenticated and request.user.is_superuser %}
+              <li><a href="{% url 'admin_page' %}">Admin sahifasi</a></li>
+              {% endif %}
             </ul>
           </div>
           <div class="header_top_right">
-            <p>{% now "jS F Y H:i" %}</p>
+            {% if request.user.is_authenticated %}
+            <p><a href="{% url 'logout' %}" style='color: red;'>Log Out</a></p>
+            <p><i>{{request.user.username}}</i></p>
+            <p><a href="{% url 'user_profile' %}" style='color: yellow !important;'>Mening profilim</a></p>
+            {% else %}
+            <p><a href="{% url 'login' %}" style='color: yellow !important;'>Saytga kirish</a></p>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -63,6 +72,11 @@
           <li><a href="{% url 'sport_news_page' %}">Sport</a></li>
           <li><a href="{% url 'tech_news_page' %}">Fan-texnika</a></li>
           <li><a href="{% url '404_page' %}">404 sahifa</a></li>
+          <li>
+            <form method="get" action="{% url 'search_results' %}">
+              <input type="search" name="q" placeholder='Qidiruv...' class='form-control'></input>
+            </form>
+          </li>
         </ul>
       </div>
     </nav>

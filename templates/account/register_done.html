@@ -1,0 +1,11 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+<title>{% block title %}Success in registration{% endblock title %}</title>
+
+{% block content %}
+<div>
+    <h1>{{new_user.first_name}}, tabriklaymiz siz ro'yxatdan o'tdingiz!</h1>
+    <p>Saytga <a href="{% url 'login' %}"> Log In </a> orqali kirishingiz mumkin!</p>
+</div>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+      <div class="col-sm-8">
+          <h2 class="text-center">Yangilikni o'chirish</h2>
+          <form method="post">
+            {% csrf_token %}
+            <p>{{news.title | truncatewords:5}} sarlavhali yangilikni:</p>
+            <button type="submit" class="btn btn-danger ml-2">O'chiraman!</button>
+          </form>
+      </div>
+  </div>
+</div>
+{% endblock content %}

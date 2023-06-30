@@ -18,7 +18,35 @@
 11. Forms: Create contact model -> forms.py -> Modelform > views.py add > sending
 12. Show news by categories: truncatewords. 
 
-13. get_context_data va context_processor: HomePageView class, adding extra context using get_context_data, adding new file - custom_context_processor. 
+13. <?> get_context_data va context_processor: HomePageView class, adding extra context using get_context_data, adding new file - custom_context_processor. 
   - Loyihani to'ldirish: Xuddi shu usulda barcha kategoriyalar uchun yangiliklar qoshish va ularni aks ettirish.
 14. URL ni slug o'zgartirish: <int:id> -> <slug:news> va boshqa updatelar
 15. Category boyicha pagelar ochish, get_queryset() overwrite qilish.
+16. CRUD uchun yangi views yasash. Yangiliklarni tahrirlash, ochirish. Buning uchun form ishlatish.
+
+--> Accounts section start
+17. Start app accounts, add forms.py, write user_login() function in views.py, call django auth ready views like LoginView, Creation of Login and Logout custm htmls
+18. User profile setting: Just if user logged in, show "my profile", or else "login to website" button, user_profile.html file handling
+19. Change user password: PasswordChangeDoneView, html templates password-change+done.
+20. Password reset: PasswordResetViews. Email jo'natish, password_reset_email.html - email contexti. Email jonatish uchun settings.py EMAIL_BACKEND <? Console chiqarmayapti >
+21. Sign Up: forms.py da handy yozamiz. Class based qilish ham mumkin!
+22. Custom User Model: accounts/models.py da Profile modelini yozib adminkaga qoshamiz. 
+  - Endi, Usersga reg qilgan foydalanuvchi Profilesga ham qilishi uchun signup qismida qo'shimcha fieldlarni ham chiqaramiz.
+  - Edit qismi: forms.py forma > views.py funksiya > profile_edit.html > enctype berish
+  - Class based edit > profilga rasm chiqib turishi > (!failed for now) -> ✅ Profile.objects.filter emas .get() ishlatiladi
+23. PERMISSIONS 
+  - User login qilmasa ham account/profile kabi linklarga kirib ketyapti. Buning oldini olish uchun:
+  - @login_required decorator (function based view uchun) > LOGIN_URL = 'login' in settings.py
+  - LoginRequiredMixin - xuddi shu dekoratorning class uchun mixini. Inherit qilishimiz bilan ishlaydi
+  + UserPassesTestMixin - hamma userlar ham crud qila olishi togri emas, demak faqat superuserlar uchun tekshirishimiz kerak.
+  + Open custom_permissions.py in project folder. We created a new permission and used. Auth va superuserlikka tekshirib bir necha html qismlari o'zgardi
+24. Admin page: admin_page.html added and put crud functions with permissions > @user_passes_test
+
+25. IZOHLAR
+  - models.py: related_name="comments" - news.comments qilib ulash uchun muhim! | actions = ['func1', 'func2'] in models.py
+  - forms.py: CommentForm > news_detail functionda comments activelarni filter qilib olamiz. new_comment va comment_form.save(commit=False) hamda validations
+  - templates: news_detail pageda for loop orqali chiqariladi. Form ochilib templateda chiqariladi. Submitdan keyin clear qilish uchun .save() dan keyin comment_form = CommentForm() qilish kk.
+26. Additional functions
+  - Search: input type='q' - search barda qidirilganda keywords q=kw korinishida boladi > create ListView in views.py > get_queryset() method
+  - Ko'rishlar soni - har request jonatilganda (x) > hitcount app > add to func
+  - Add templates: {% load hitcount_tags %} > read docs

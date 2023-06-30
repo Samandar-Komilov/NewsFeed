@@ -1,0 +1,26 @@
+{% extends 'news/base.html' %}
+{% load static %}
+
+<title>{% block title %}Custom admin panel{% endblock title %}</title>
+
+{% block content %}
+<div>
+    <h1>Admin sahifasi</h1>
+    <h3>Barcha adminlar</h3>
+    <table class='table table-bordered table-responsive table-striped'>
+        <tr>
+            <th>Username</th>
+            <th>Name</th>
+            <th>Lastname</th>
+        </tr>
+        {% for admin in admin_users %}
+        <tr>
+            <td>{{admin.username}}</td>
+            <td>{{admin.first_name}}</td>
+            <td>{{admin.last_name}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h3><a href="{% url 'news_create' %}" class='text-primary'>Yangilik qo'shish</a></h3>
+</div>
+{% endblock content %}

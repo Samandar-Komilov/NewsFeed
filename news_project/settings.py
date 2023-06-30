@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'news_app',
+    'accounts',
+    'hitcount',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,12 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Page redirected after Login
+LOGIN_REDIRECT_URL = 'home_page'
+
+# Email send
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # change console to smtp | Only of email is registered in website
+# Server <service> Email (MailGun va Sendgrid)
+
+LOGIN_URL = 'login'

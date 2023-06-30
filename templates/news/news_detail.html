@@ -1,15 +1,50 @@
 {% extends 'news/base.html' %}
 {% load static %}
+{% load hitcount_tags %}
 
 {% block content %}
 <div class="container">
   <div class="row">
       <div class="col-sm-8">
-          <img src="{{news.image.url}}" alt="{{news.title}}" width=30%>
-          <p>Vaqti: <i>{{news.publish_time}}</i></p>
+          <img src="{{news.image.url}}" alt="{{news.title}}"width="70%">
+          <p>Vaqti: <i>{{news.publish_time}}</i> | <span>👁 {% get_hit_count for news %}</span></p>
+          
           <h3>{{news.title}}</h3>
           <p>{{news.body}}</p>
       </div>
   </div>
+  {% if request.user.is_authenticated and request.user.is_superuser %}
+  <div class="card-footer text-center">
+    <a href="{% url 'news_update' news.slug %}">Tahrirlash</a>  <!-- news.slug juda muhim, sababi link slug yordamida aniqlanadi. Akso holda news_detail view slug argumentini topolmayapti degan error chiqaradi -->
+    <a href="{% url 'news_delete' news.slug %}">'O'chirish</a>
+  </div>
+  {% endif %}
+
+  <!-- Comments section -->
+  <h3>Izohlar soni: <span style="color: red;">{{comment_count}}</span></h3>
+  {% for comment in comments %}
+  <div class="comments" style="padding: 10px;">
+    <p class="fw-bold" style='font-weight: bold;'>@{{comment.user}}
+    <span class="text-muted fw-normal" style='font-weight: normal;'>{{comment.created_time}}</span></p>
+    {{comment.body}}
+  </div>
+  {% endfor %}
+
+  <!-- Add new comments -->
+  {% if request.user.is_authenticated %}
+  <div class="col-md-8 card mb-4 mt-3">
+    <div class="card-body">
+      <h3>Izoh qoldirish</h3>
+      <form style='margin-top: 1.3em;' method="post">
+      {% csrf_token %}
+      {{comment_form.as_p}}
+      <button type="submit" class='btn btn-primary'>Yuborish</button>
+      </form>
+    </div>
+  </div>
+  {% else %}
+  <h3>Komment yozish uchun iltimos <a href="{% url 'login' %}" style='color: red;'>saytga kiring</a> yoki <a href="{% url 'user_register' %}" style='color: red;'>ro'yxatdan o'ting</a></h3>
+  {% endif %}
+
 </div>
 {% endblock content %}
